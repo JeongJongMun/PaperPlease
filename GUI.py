@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLineEdit, QTextEdit, QPushButton
+from Metaphor import agent_executor
 
 class SimpleApp(QMainWindow):
     def __init__(self):
@@ -25,8 +26,15 @@ class SimpleApp(QMainWindow):
         central_widget.setLayout(layout)
 
     def display_text(self):
+        # input field text
         text = self.input_field.text()
+        
+        # LLM query
+        answer = agent_executor.run(text)
+        # LLM result
+        
         self.output_field.append(text)
+        self.output_field.append(answer)
         self.input_field.clear()
 
 if __name__ == '__main__':
