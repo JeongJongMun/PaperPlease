@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLineEdit, QTextEdit, QPushButton
-from Metaphor import agent_executor
+# from Metaphor import agent_executor
+from Metaphor import runnable
 
 class SimpleApp(QMainWindow):
     def __init__(self):
@@ -29,13 +30,19 @@ class SimpleApp(QMainWindow):
         # input field text
         text = self.input_field.text()
         
-        # LLM query
-        answer = agent_executor.run(text)
-        # LLM result
+        # LLM query & answer
         
         self.output_field.append(text)
-        self.output_field.append(answer)
+        
+        c_list = ""
+        r = runnable.stream({"question":text})
+        print(r)
+        for c in r:
+            c_list += c
+        self.output_field.append(c_list)
         self.input_field.clear()
+        
+        # what is the author of "attention is all you need"
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
