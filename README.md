@@ -1,4 +1,5 @@
-# Paper Please
+## Paper Please
+---
 ### 논문 검색 AI
 - Rule
     - Git 커밋 메시지 형식

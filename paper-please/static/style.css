@@ -1,0 +1,13 @@
+.inputfield {
+    height: 60px;
+}
+
+.submitBtn {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submitIcon {
+    font-size: 25px; /* 아이콘 크기를 조절할 값 */
+}
