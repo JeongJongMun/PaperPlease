@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from flask.json.provider import JSONProvider
 import json
 import sys
-from model import chain
+from chain import chain
 
 from langchain.callbacks import get_openai_callback
 
