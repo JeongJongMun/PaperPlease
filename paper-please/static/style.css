@@ -11,3 +11,22 @@
 .submitIcon {
     font-size: 25px; /* 아이콘 크기를 조절할 값 */
 }
+
+body {
+    font-family: 'Pretendard', sans-serif;
+}
+
+.tab {
+    display: none;
+}
+
+.tab:checked+label {
+    background-color: #f3f4f6;
+    /* light gray for light theme */
+    color: #111827;
+    /* almost black for light theme */
+}
+
+.tab:checked+label+.content {
+    display: block;
+}
