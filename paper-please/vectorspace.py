@@ -1,17 +1,5 @@
-from tqdm import tqdm
-import time
-from langchain.document_loaders import PyMuPDFLoader
+from libraries import *
 
-from langchain.storage.file_system import LocalFileStore
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores.faiss import FAISS
-
-from langchain.embeddings.cache import CacheBackedEmbeddings
-
-
-"""_summary_ = "PDF Loader & Vectorstore & Retrieval"
-"""
 
 def construct_vectorstore():
     local_file_store = LocalFileStore("./cache/")

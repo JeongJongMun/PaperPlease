@@ -1,3 +1,5 @@
+from libraries import *
+
 '''
 Using Dynamic Few-Shot Prompting
 
@@ -47,10 +49,7 @@ To get the most recent and specific information, I recommend checking the latest
 '''
 
 
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
-from langchain.prompts.example_selector.semantic_similarity import SemanticSimilarityExampleSelector
-from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
+
 
 # Example 생성
 examples = [
@@ -160,11 +159,12 @@ topic_or_name_prompt = ChatPromptTemplate.from_messages([
     ('human', '{input}'),
 ])
 
-
-chat_prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a chatbot having a conversation with a human. Given the following extracted parts of a long document and a question, create a final answer."),
-    MessagesPlaceholder(variable_name='context'),
-    MessagesPlaceholder(variable_name='chat_history'),
-    ("user", "{input}"),
-    MessagesPlaceholder(variable_name="agent_scratchpad")    
-])
+chat_prompt = ChatPromptTemplate.from_template(
+    """
+    You are a chatbot having a conversation with a human. Given the following extracted parts of a long document and a question, create a final answer.
+    {context}
+    {chat_history}
+    {input}
+    {agent_scratchpad}
+    """
+)
