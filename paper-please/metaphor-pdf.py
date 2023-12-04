@@ -1,5 +1,8 @@
+import os
 from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
 
-search = MetaphorSearchAPIWrapper()
+search = MetaphorSearchAPIWrapper(metaphor_api_key=os.environ.get("METAPHOR_API_KEY", None))
 
-search.results("The best blog post about AI safety is definitely this: ", 10)
+ans = search.results("Attention is all you need", 5)
+
+print(ans)

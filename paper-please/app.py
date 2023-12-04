@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from flask.json.provider import JSONProvider
 import json
 import sys
-from chain import chain
+from chain import build_chain
 
 from langchain.callbacks import get_openai_callback
 
@@ -25,7 +25,7 @@ def submit():
     with get_openai_callback() as callback:
         # for c in chain.stream({"question" : input}):
         #     answer += c
-        answer = chain.invoke({"input" : input})
+        answer = build_chain.invoke({"input" : input})
         # Print Token Usage
         print(callback)
 
