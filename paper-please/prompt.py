@@ -50,7 +50,7 @@ To get the most recent and specific information, I recommend checking the latest
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 from langchain.prompts.example_selector.semantic_similarity import SemanticSimilarityExampleSelector
-from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
+from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
 
 # Example 생성
 examples = [
@@ -120,7 +120,7 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 )
 
 # 최종 PromptTemplate와 결합
-final_prompt = ChatPromptTemplate.from_messages(
+retrieval_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", "As an expert in researching and summarizing research papers, your task is to conduct a comprehensive search on a given topic and provide a concise summary of the key findings and insights from the selected papers. Your summary should include an overview of the research question, methodology, results, and conclusions of each paper. Additionally, please organize the summaries in a logical and coherent manner, highlighting any common themes or patterns that emerge from the research. Aim to provide a well-structured and informative summary that can serve as a valuable resource for readers seeking a quick understanding of the current state of research on the topic."),
         few_shot_prompt,
@@ -128,7 +128,7 @@ final_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-topic_or_name_prompt = ChatPromptTemplate.from_template("""
+system_prompt ="""
         As an expert in research topics and papers, your task is to develop an algorithm that can accurately extract the name of a research topic or research paper from a given user input. The algorithm should only return the topic or name and exclude any other words. 
 
         ### Context:
@@ -152,8 +152,19 @@ topic_or_name_prompt = ChatPromptTemplate.from_template("""
         
         Note: The extracted topic should not include the surrounding words or phrases, such as "I am currently working on a research paper titled" and "most cited recent papers in" and "Extracted Topic:" in this examples.
         
-        Now, Extract the research topic or name of research paper from the following user input:
-        
-        User Input: {input}
+        Now, Extract the research topic or name of research paper from the following human input:
         """
-)
+
+topic_or_name_prompt = ChatPromptTemplate.from_messages([
+    ("system", system_prompt),
+    ('human', '{input}'),
+])
+
+
+chat_prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a chatbot having a conversation with a human. Given the following extracted parts of a long document and a question, create a final answer."),
+    MessagesPlaceholder(variable_name='context'),
+    MessagesPlaceholder(variable_name='chat_history'),
+    ("user", "{input}"),
+    MessagesPlaceholder(variable_name="agent_scratchpad")    
+])
