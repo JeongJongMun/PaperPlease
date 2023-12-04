@@ -17,7 +17,7 @@ llm = ChatOpenAI(model="gpt-3.5-turbo-1106").configurable_alternatives(
 
 
 llm_with_tools = llm.bind(
-    functions=[format_tool_to_openai_function(t) for t in tools]
+    functions=[format_tool_to_openai_function(t) for t in toolset]
 )
 
 
@@ -38,7 +38,7 @@ agent_with_memory = (
     | OpenAIFunctionsAgentOutputParser()
 )
 
-agent_executor = AgentExecutor(agent=agent_with_memory, tools=tools, verbose=True, max_iterations=3)
+agent_executor = AgentExecutor(agent=agent_with_memory, tools=toolset, verbose=True, max_iterations=3)
 
 
 

@@ -53,7 +53,7 @@ def summary_url(url: str):
     return answer
 
 
-tools = [summary_arxiv, search_metaphor, get_url_arxiv, get_url_scholarly, summary_url]
+toolset = [summary_arxiv, search_metaphor, get_url_arxiv, get_url_scholarly, summary_url]
 
 
 

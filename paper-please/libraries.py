@@ -42,7 +42,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.tools.render import format_tool_to_openai_function
 
 # utils & utilities
-from langchain_utils import combinded_chain, get_openai_callback
 from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
 from langchain.utilities.arxiv import ArxivAPIWrapper
 
