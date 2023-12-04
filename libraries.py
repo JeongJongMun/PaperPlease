@@ -3,7 +3,7 @@ import langchain
 # agents
 from langchain.agents import tool, tools, AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_functions
-from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
+from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser, XMLAgentOutputParser, ReActSingleInputOutputParser
 
 # cache
 from langchain.cache import InMemoryCache
@@ -30,7 +30,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.storage.file_system import LocalFileStore
 
 # schema
-from langchain.schema import StrOutputParser
+from langchain.schema import StrOutputParser, AgentFinish
 from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import ConfigurableField, RunnableLambda, RunnablePassthrough, RunnableParallel
@@ -60,7 +60,7 @@ from embedchain import Pipeline as App
 
 # global variables
 from tools import toolset
-from prompt import topic_or_name_prompt, retrieval_prompt, chat_prompt
+from prompt import topic_or_name_prompt, chat_prompt
 from scholarly import scholarly
 
 # paper
