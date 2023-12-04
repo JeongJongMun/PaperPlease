@@ -1,4 +1,4 @@
-from libraies import *
+from libraries import *
 
 def image_extract_pdf(pdf_file, save_url="./static/images"):
     images = []

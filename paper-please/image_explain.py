@@ -1,4 +1,4 @@
-from libraies import *
+from libraries import *
 
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY", None) 
 
