@@ -1,57 +1,80 @@
+# langchain
 import langchain
-from langchain.chat_models import ChatOpenAI
-from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.output_parser import StrOutputParser
-from langchain.prompts import HumanMessagePromptTemplate
-from langchain.chat_models import ChatOpenAI, ChatCohere
-from langchain.schema import StrOutputParser
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
-from langchain.prompts.example_selector.semantic_similarity import SemanticSimilarityExampleSelector
-from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
-from tqdm import tqdm
-import time
-from langchain.document_loaders import PyMuPDFLoader
+# agents
+from langchain.agents import tool, tools, AgentExecutor
+from langchain.agents.format_scratchpad import format_to_openai_functions
+from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 
-from langchain.storage.file_system import LocalFileStore
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores.faiss import FAISS
+# cache
+from langchain.cache import InMemoryCache
 
-from langchain.embeddings.cache import CacheBackedEmbeddings
-import arxiv
-from scholarly import scholarly
-from embedchain import Pipeline as App
-import os
-from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
-from langchain.utilities.arxiv import ArxivAPIWrapper
-from langchain.agents import tool, tools
-
+# callbacks
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.callbacks import get_openai_callback
 
+# chat_models
+from langchain.chat_models import ChatOpenAI, ChatCohere
+
+# document_loaders
+from langchain.document_loaders import PyMuPDFLoader
+
+# embeddings
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings.cache import CacheBackedEmbeddings
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+# memory
+from langchain.memory import ConversationBufferMemory
+
+# storage
+from langchain.storage.file_system import LocalFileStore
+
+# schema
+from langchain.schema import StrOutputParser
+from langchain.schema.messages import HumanMessage, SystemMessage, AIMessage
+from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import ConfigurableField, RunnableLambda, RunnablePassthrough, RunnableParallel
 
-from tools import tools
-from prompt import topic_or_name_prompt, retrieval_prompt, chat_prompt
+# text
+from langchain.text_splitter import CharacterTextSplitter
 
-from langchain.memory import ConversationBufferMemory
+# tools
+from langchain.tools.render import format_tool_to_openai_function
+
+# utils & utilities
+from langchain_utils import combinded_chain, get_openai_callback
+from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
+from langchain.utilities.arxiv import ArxivAPIWrapper
+
+# vectorstores
+from langchain.vectorstores.chroma import Chroma
+from langchain.vectorstores.faiss import FAISS
+
+# prompts
+from langchain.prompts.example_selector.semantic_similarity import SemanticSimilarityExampleSelector
+from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
+
+# etc
 from operator import itemgetter
 from vectorspace import construct_vectorstore, store_documents
+from embedchain import Pipeline as App
 
+# global variables
+from tools import toolset
+from prompt import topic_or_name_prompt, retrieval_prompt, chat_prompt
+from scholarly import scholarly
 
-from langchain.tools.render import format_tool_to_openai_function
-from langchain.agents.format_scratchpad import format_to_openai_functions
-from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain.agents import AgentExecutor
-import langchain
-from langchain.cache import InMemoryCache
+# paper
+import arxiv
 
+# image
+import fitz, base64
 from PIL import Image
 import matplotlib.pyplot as plt
 
-import base64
-import os
-import fitz 
-import io 
+# system
+import os, io
+
+# time
+from tqdm import tqdm
+import time
