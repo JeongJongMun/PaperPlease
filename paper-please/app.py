@@ -2,8 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from flask.json.provider import JSONProvider
 import json
 import sys
-from chain import build_chain
-
+from langchain_utils import agent_executor
 from langchain.callbacks import get_openai_callback
 
 
@@ -25,12 +24,13 @@ def submit():
     with get_openai_callback() as callback:
         # for c in chain.stream({"question" : input}):
         #     answer += c
-        answer = build_chain.invoke({"input" : input})
+        answer = agent_executor.invoke({'input':input})
         # Print Token Usage
         print(callback)
 
 
     return jsonify({'result': 'success', 'answer': answer})
+
 
 if __name__ == '__main__':
     print(sys.executable)

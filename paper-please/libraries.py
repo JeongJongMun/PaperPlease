@@ -47,7 +47,6 @@ from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import AgentExecutor
 import langchain
 from langchain.cache import InMemoryCache
-from langchain_utils import combinded_chain, get_openai_callback
 
 from PIL import Image
 import matplotlib.pyplot as plt

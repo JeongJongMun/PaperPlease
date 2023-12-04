@@ -1,27 +1,21 @@
 from libraries import *
 
-
 @tool
-def search_arxiv(topic: str):
-    """ return summary of arxiv papers """
+def summary_arxiv(topic: str):
+    """ Useful for getting a summary of a topic from arxiv """
     arxiv = ArxivAPIWrapper(
-        top_k_results = 3,
+        top_k_results = 1,
         ARXIV_MAX_QUERY_LENGTH = 300,
         load_max_docs = 100,
         load_all_available_meta = False,
-        doc_content_chars_max = 40000
+        doc_content_chars_max = 10000
     )
-    docs = arxiv.get_summaries_as_docs(topic)
+    return arxiv.get_summaries_as_docs(topic)
     
-    summaries = []
-    for doc in docs:
-        summaries.append(doc.page_content)
-    
-    return summaries
 
 @tool
 def search_metaphor(topic: str):
-    """ Call search engine with a research paper title or query."""
+    """ Useful for getting title or url or author or published date of topic"""
     search = MetaphorSearchAPIWrapper(metaphor_api_key=os.environ.get("METAPHOR_API_KEY", None))
     
     return search.results(topic, 1)
@@ -29,7 +23,7 @@ def search_metaphor(topic: str):
 
 @tool
 def get_url_arxiv(topic: str, max_results=1):
-    """ return url of arxiv papers"""
+    """ Useful for getting pdf url of topic from arxiv"""
     client = arxiv.Client()
     search = arxiv.Search(
         query=topic,
@@ -45,19 +39,23 @@ def get_url_arxiv(topic: str, max_results=1):
 
 @tool
 def get_url_scholarly(topic: str):
-    """ return url of google scholar papers"""
+    """ Useful for getting pdf url of topic from google scholar"""
     output = scholarly.search_pubs(topic)
     
     return [next(output, None)["eprint_url"]]
 
+@tool
+def summary_url(url: str):
+    """ Useful when you have a URL and need a summary and description of that URL."""
+    pdf_bot = App()
+    pdf_bot.add(url)
+    answer = pdf_bot.query("Describe and summarize what the link is about in 7 sentences or less.")
+    return answer
 
-tools = [search_arxiv, search_metaphor, get_url_arxiv, get_url_scholarly]
+
+tools = [summary_arxiv, search_metaphor, get_url_arxiv, get_url_scholarly, summary_url]
 
 
-# retrieval_paper("Attention is All You Need")
-
-# ans = retriever.get_relevant_documents("What does Attention is all you need talk about?")
-# print(ans[0])
 
 """
 Local Test

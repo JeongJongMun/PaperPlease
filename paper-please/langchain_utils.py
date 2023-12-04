@@ -1,6 +1,7 @@
-# langchain_utils.py
-
 from libraries import *
+
+# Cache
+langchain.llm_cache = InMemoryCache()
 
 # Memory, Vectorstore, Retriever
 memory = ConversationBufferMemory(memory_key="history", return_messages=True)
@@ -22,6 +23,7 @@ llm_with_tools = llm.bind(
 
 def pp(prompt):
     print(prompt)
+    print()
     return prompt
 
 
@@ -36,11 +38,11 @@ agent_with_memory = (
     | OpenAIFunctionsAgentOutputParser()
 )
 
-agent_executor = AgentExecutor(agent=agent_with_memory, tools=tools, verbose=True)
+agent_executor = AgentExecutor(agent=agent_with_memory, tools=tools, verbose=True, max_iterations=3)
 
 
 
 input = """
 What does Attention is all you need talk about?
 """
-print(agent_executor.invoke({'input':input}))
+# print(agent_executor.invoke({'input':input}))
