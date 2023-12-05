@@ -1,7 +1,7 @@
 # langchain
 import langchain
 # agents
-from langchain.agents import tool, tools, AgentExecutor
+from langchain.agents import AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_functions
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser, XMLAgentOutputParser, ReActSingleInputOutputParser
 
@@ -41,10 +41,6 @@ from langchain.text_splitter import CharacterTextSplitter
 # tools
 from langchain.tools.render import format_tool_to_openai_function
 
-# utils & utilities
-from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
-from langchain.utilities.arxiv import ArxivAPIWrapper
-
 # vectorstores
 from langchain.vectorstores.chroma import Chroma
 from langchain.vectorstores.faiss import FAISS
@@ -56,15 +52,11 @@ from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTempla
 # etc
 from operator import itemgetter
 from vectorspace import construct_vectorstore, store_documents
-from embedchain import Pipeline as App
 
 # global variables
 from tools import toolset
 from prompt import topic_or_name_prompt, chat_prompt
-from scholarly import scholarly
 
-# paper
-import arxiv
 
 # image
 import fitz, base64
