@@ -9,3 +9,8 @@
     - 메인에 바로 푸시 안되게 해놓았음
     - 자신이 Pull Request 올렸으면, 상대방이 확인해주기
         - 코드 리뷰 후 병합
+
+* chat = RemoteRunnable("http://localhost:8000/chat")
+
+* curl --location --request POST 'http://localhost:8000/chat/stream/' --header 'Content-Type: application/json' --data-raw '{"input": "10 + 10?"}'
+* https://python.langchain.com/docs/langserve

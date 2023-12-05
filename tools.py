@@ -16,7 +16,7 @@ def summary_arxiv(topic: str):
 @tool
 def search_metaphor(topic: str):
     """ Useful for getting title or url or author or published date of topic"""
-    search = MetaphorSearchAPIWrapper(metaphor_api_key=os.environ.get("METAPHOR_API_KEY", None))
+    search = MetaphorSearchAPIWrapper()
     
     return search.results(topic, 1)
         
