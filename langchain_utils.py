@@ -13,7 +13,7 @@ chat_model = ChatOpenAI(model="gpt-3.5-turbo-1106").configurable_alternatives(
     default_key="gpt3.5",
     gpt4=ChatOpenAI(model="gpt-4-1106-preview"),
     cohere=ChatCohere(), 
-).with_config(configurable={"chatmodel": "gpt3.5"}) # Configureable Field
+).with_config(configurable={"chatmodel": "gpt4"}) # Configureable Field
 
 # Binding Tools
 llm_with_tools = chat_model.bind(
@@ -39,4 +39,4 @@ agent_with_memory = (RunnablePassthrough.assign(
 )
 
 # Agent Executor
-agent_executor = AgentExecutor(memory=memory, agent=agent_with_memory, tools=toolset, verbose=False, max_iterations=3, handle_parsing_errors=True)
+agent_executor = AgentExecutor(memory=memory, agent=agent_with_memory, tools=toolset, verbose=False, max_iterations=10, max_execution_time=30, handle_parsing_errors=True)

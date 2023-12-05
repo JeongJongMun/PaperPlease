@@ -36,6 +36,7 @@ add_routes(
     app,
     RunnableLambda(make_dict) | RunnableLambda(pp) | agent_executor | RunnableLambda(pp),
     path="/chat",
+    
 )
 
 """Sample Questions

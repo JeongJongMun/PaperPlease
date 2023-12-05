@@ -1,24 +1,29 @@
-from libraries import *
+import arxiv
+from langchain.utilities.arxiv import ArxivAPIWrapper
+from langchain.utilities.metaphor_search import MetaphorSearchAPIWrapper
+from scholarly import scholarly
+from langchain.agents import tool
+from embedchain import Pipeline as App
 
 @tool
 def summary_arxiv(topic: str):
     """ Useful for getting a summary of a topic from arxiv """
-    arxiv = ArxivAPIWrapper(
+    arxiv_bot = ArxivAPIWrapper(
         top_k_results = 1,
         ARXIV_MAX_QUERY_LENGTH = 300,
         load_max_docs = 100,
         load_all_available_meta = False,
         doc_content_chars_max = 10000
     )
-    return arxiv.get_summaries_as_docs(topic)
+    return arxiv_bot.get_summaries_as_docs(topic)
     
 
 @tool
 def search_metaphor(topic: str):
     """ Useful for getting title or url or author or published date of topic"""
-    search = MetaphorSearchAPIWrapper()
+    metaphor_bot = MetaphorSearchAPIWrapper()
     
-    return search.results(topic, 1)
+    return metaphor_bot.results(topic, 1)
         
 
 @tool
