@@ -25,6 +25,8 @@
     <!-- CSS -->
     <link href="{{ request.url_for('static', path='style.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -65,7 +67,7 @@
                             onclick="onClickLLMButton(this.innerText)">GPT4
                         </button>
                         <button type="button" class="btn btn-secondary px-4 py-2 model-btn" id="GPT3.5"
-                            onclick="onClickLLMButton(this.innerText)">GPT3.5
+                            onclick="onClickLLMButton(this.innerText)">GPT3
                         </button>
                         <button type="button" class="btn btn-outline-secondary px-4 py-2 model-btn" id="Cohere"
                             onclick="onClickLLMButton(this.innerText)">Cohere
@@ -81,12 +83,11 @@
         <!-- PDF 업로드 -->
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="d-flex justify-content-end mt-4">
-                    <form action="/upload" method="POST" enctype="multipart/form-data">
-                        <input type="file" name="file" accept=".pdf" class="form-control">
-
+                <div class="d-flex justify-content-between mt-4">
+                    <form enctype="multipart/form-data" onsubmit="uploadPdf(event)" class="d-flex">
+                        <input type="file" name="pdf_file" accept=".pdf" class="form-control" title="PDF 파일 이름을 입력하세요">
+                        <button class="btn btn-outline-success ml-2" type="submit">PDF 제출하기</button>
                     </form>
-                    <button class="btn btn-outline-success ml-2" type="submit">PDF 제출하기</button>
                 </div>
             </div>
         </div>
@@ -98,7 +99,7 @@
         <div class="mb-4">
             <div class="space-y-2" id="queryOutput">
                 <!-- 동적으로 삽입되는 말풍선들 -->
-                <div class="chat-bubble">안녕하세요!</div>
+                <div class="chat-bubble">안녕하세요! 저는 Paper Please입니다. AI 관련 연구 논문을 물어보세요!</div>
             </div>
         </div>
     </div>

@@ -2,11 +2,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 import os, base64
 
-OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY", None) 
-
 llm = ChatOpenAI(temperature=0,
                  model_name="gpt-4-vision-preview",
-                 api_key=OPEN_AI_API_KEY,
                  max_tokens=256)
 
 # 이미지를 base64로 인코딩하는 함수
