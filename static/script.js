@@ -27,7 +27,7 @@ async function question() {
     $('#queryOutput').append(tt);
 
     $('#queryInput').val('');
-    let _data = JSON.stringify({"input":  {"input":input, "_chatmodel": selectedLLMModel}});
+    let _data = JSON.stringify({"input":  {"input":input}});
     console.log(_data);
 
     $.ajax({
@@ -49,49 +49,6 @@ async function question() {
         }
     });
 }
-
-// async function question() {
-//     let input = $('#queryInput').val();
-//     $('#queryInput').val('');
-//     let _data = JSON.stringify({ "input": input });
-//     console.log(_data);
-
-//     $.ajax({
-//         type: "POST",
-//         url: "/chat/stream",
-//         data: _data,
-//         contentType: 'application/json',
-//         success: function (response) {
-//             // 데이터 구분하기
-//             var lines = response.split('\n');
-//             console.log(lines.length);
-//             for (var i = 0; i < lines.length; i += 3) {
-//                 if (lines[i].includes("event: end")) {
-//                     let tempHtml = '</div>';
-//                     $('#queryOutput').append(tempHtml);
-//                     return;
-//                 }
-//                 else if (lines[i].includes("event: metadata")) {
-//                     let tempHtml = '<div class="chat-bubble">'
-//                     $('#queryOutput').append(tempHtml)
-//                 }
-//                 else if (lines[i].includes("event: data")) {
-//                     var data = JSON.parse(lines[i + 1].replace('data: ', ''));
-//                     console.log(data['content']);
-//                     // IIFE를 사용하여 data 변수의 현재 값을 setTimeout에 전달
-//                     (function(data) {
-//                         setTimeout(function() {
-//                             $('#queryOutput').append(data['content']);
-//                         }, 3000);
-//                     })(data);
-//                 }
-//             }
-
-//         }
-//     });
-// }
-
-
 
 
 function clearAnswers() {

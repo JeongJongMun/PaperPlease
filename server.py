@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi import HTTPException
 from fastapi.staticfiles import StaticFiles
-from langserve import add_routes, RemoteRunnable
+from langserve import add_routes
 from langchain.schema.runnable import RunnableLambda
-from langchain_utils import update_config, agent_executor, pp
+from agent import pp, tt,  agent_executor
 
 app = FastAPI(
   title="Paper Please",
@@ -14,17 +13,9 @@ app = FastAPI(
   description="AI Research Paper Chatbot Using LangChain",
 )
 
-# Mount the "static" directory to serve static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
-
-# Agent Input Must be a dict
-# make_dict = lambda x: {'input': x}
-
-def tt(x):
-    print(type(x))
-    return x
 
 @app.get("/")
 def read_root(request: Request):
@@ -37,21 +28,23 @@ def read_root(request: Request):
     
 add_routes(
     app,
-    RunnableLambda(tt) | RunnableLambda(pp) 
-    | RunnableLambda(update_config)
+    RunnableLambda(pp)
     | agent_executor
     | RunnableLambda(pp),
     path="/chat",
     
 )
 
-
 """Sample Questions
-"Attention is All You Need"의 저자는 누구인가요?
-2023년에 가장 인기 있는 AI 논문은 무엇인가요?
-Attention is All You Need에 대해서 설명해줘.
-BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding의 주된 주제에 대해서 설명해줘.
-'GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding'의 저자는 누구인가요?
+안녕! 정종문이야
+너에 대해서 설명해줘
+내 이름이 뭐라고?
+2023년에 가장 인용이 많이 된 트렌드한 AI 연구 논문을 3가지정도 알려줘!
+arXiv에서 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'라는 논문의 링크를 주고, 논문의 내용을 간단하게 요약해줘.
+Who is author of 'GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding'
+
+arXiv에서 'ReAct: Synergizing Reasoning and Acting in Language Models'라는 논문을 찾아주고, 논문의 abstract를 요약해줘. ReAct는 Reasoning과 Acting을 언어 모델에 적용한거야. 
+
 """
 
 if __name__ == "__main__":

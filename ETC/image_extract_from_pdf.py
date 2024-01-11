@@ -1,5 +1,6 @@
 import io
 from PIL import Image
+import fitz
 
 def image_extract_pdf(pdf_file, save_url="./static/images"):
     images = []
@@ -32,4 +33,10 @@ def image_extract_pdf(pdf_file, save_url="./static/images"):
     
     # return images
     
-image_extract_pdf
+
+pdf_path = "./1810.04805.pdf"
+pdf_document = fitz.open(pdf_path)
+
+image_extract_pdf(pdf_document)
+
+pdf_document.close()
